@@ -6,3 +6,38 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+
+/* input[type="checkbox"] {
+  display: none;
+} */
+
+/* .checkbox-container {
+  display: inline-block;
+  position: relative;
+  width: 20px; 
+  height: 20px;
+  background-color: #fff; 
+  border: 1px solid #cccccc; 
+  border-radius: 50%; 
+  cursor: pointer;
+} */
+
+/* .checkbox-container:active {
+  border-color: #00b207;
+} */
+
+/* .inner-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: 60%;
+  background-color: #00b207;
+  border-radius: 50%;
+  opacity: 0;
+} */
+
+input[type="checkbox"]:checked + .checkbox-container .inner-circle {
+  opacity: 1;
+}
