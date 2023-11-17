@@ -3,6 +3,7 @@ import TestImage from "../Images/Image.svg";
 import styled from "styled-components";
 import AddToCart from "../Images/Add To Cart.svg";
 import { Products } from "../Interface";
+import { useNavigate } from "react-router-dom";
 
 const Product = styled.div`
   border: 1px solid #e6e6e6;
@@ -14,12 +15,23 @@ interface Props {
   products: Products[];
   setProducts: React.Dispatch<React.SetStateAction<Products[]>>;
   currentCategory: string;
+  setCurrentProduct: React.Dispatch<React.SetStateAction<{}>>;
 }
 
-const ProductList = ({ products, setProducts, currentCategory }: Props) => {
-  console.log(products);
+const ProductList = ({
+  products,
+  setProducts,
+  currentCategory,
+  setCurrentProduct,
+}: Props) => {
+  const navigate = useNavigate();
 
   const [filteredProducts, setFilteredProducts] = useState<Products[]>([]);
+
+  const viewProduct = (productName: object) => {
+    setCurrentProduct(productName);
+    navigate("/product");
+  };
 
   useEffect(() => {
     const filtered = products.filter(
@@ -50,50 +62,13 @@ const ProductList = ({ products, setProducts, currentCategory }: Props) => {
           width: "320px",
         }}
       >
-        {/* {products.map((item) => {
-          if (currentCategory.length > 0) {
-            return <></>;
-          } else {
-            return (
-              <Product key={item.id}>
-                <img
-                  style={{
-                    width: "300px",
-                    height: "300px",
-                    objectFit: "contain",
-                  }}
-                  src={item.image}
-                  alt={item.title}
-                />
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    padding: "10px 15px",
-                  }}
-                >
-                  <div>
-                    <p
-                      style={{
-                        color: "#4D4D4D",
-                        fontSize: "14px",
-                        width: "200px",
-                      }}
-                    >
-                      {item.title}
-                    </p>
-                    <h3 style={{ fontSize: "16px" }}>${item.price}</h3>
-                  </div>
-                  <img src={AddToCart} alt="Shopping icon" />
-                </div>
-              </Product>
-            );
-          }
-        })} */}
-
         {currentCategory.length > 0
           ? filteredProducts.map((item) => (
-              <Product key={item.id}>
+              <Product
+                onClick={() => viewProduct(item)}
+                key={item.id}
+                style={{ cursor: "pointer" }}
+              >
                 <img
                   style={{
                     width: "300px",
@@ -127,7 +102,11 @@ const ProductList = ({ products, setProducts, currentCategory }: Props) => {
               </Product>
             ))
           : products.map((item) => (
-              <Product key={item.id}>
+              <Product
+                onClick={() => viewProduct(item)}
+                key={item.id}
+                style={{ cursor: "pointer" }}
+              >
                 <img
                   style={{
                     width: "300px",

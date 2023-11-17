@@ -65,7 +65,7 @@ const Filter = ({ products, currentCategory, setCurrentCategory }: Props) => {
       </FilterButton>
       <div>
         <h4
-          style={{ fontSize: "20px", margin: "24px 0px" }}
+          style={{ fontSize: "20px", margin: "24px 0px", cursor: "pointer" }}
           onClick={() => setCurrentCategory("")}
         >
           All Categories
@@ -83,7 +83,7 @@ const Filter = ({ products, currentCategory, setCurrentCategory }: Props) => {
                   <InnerCircle className="inner-circle"></InnerCircle>
                 </CheckboxContainer>
               </label>
-              <p>{item}</p>
+              <p style={{ cursor: "pointer" }}>{item}</p>
             </div>
           ))}
         </div>

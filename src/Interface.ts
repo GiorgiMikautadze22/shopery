@@ -6,3 +6,11 @@ export interface Products {
   price: number;
   title: string;
 }
+
+export interface Product {
+  title: string;
+  image: string;
+  price: number;
+  description: string;
+  category: string;
+}
