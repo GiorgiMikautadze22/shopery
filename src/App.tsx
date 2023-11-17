@@ -8,6 +8,7 @@ import { Products } from "./Interface";
 
 function App() {
   const [products, setProducts] = useState<Products[]>([]);
+  const [currentCategory, setCurrentCategory] = useState("");
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
@@ -16,10 +17,18 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <Header />
+      <Header currentCategory={currentCategory} />
       <div style={{ display: "flex", gap: "20px" }}>
-        <Filter products={products} />
-        <ProductList products={products} setProducts={setProducts} />
+        <Filter
+          products={products}
+          setCurrentCategory={setCurrentCategory}
+          currentCategory={currentCategory}
+        />
+        <ProductList
+          products={products}
+          setProducts={setProducts}
+          currentCategory={currentCategory}
+        />
       </div>
     </div>
   );

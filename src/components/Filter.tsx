@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import FilterIcon from "../Images/Filter 24px.svg";
 import { Products } from "../Interface";
@@ -47,8 +47,10 @@ const InnerCircle = styled.div`
 
 interface Props {
   products: Products[];
+  currentCategory: string;
+  setCurrentCategory: React.Dispatch<React.SetStateAction<string>>;
 }
-const Filter = ({ products }: Props) => {
+const Filter = ({ products, currentCategory, setCurrentCategory }: Props) => {
   const categories = [
     "electronics",
     "jewelery",
@@ -56,39 +58,32 @@ const Filter = ({ products }: Props) => {
     "women's clothing",
   ];
 
-  // let mensClothingCount = 0;
-  // let electronicsCount = 0;
-  // let jeweleryCount = 0;
-  // let womansClothingCount = 0;
-
-  // products.map((item) => {
-  //   if (item.category === "electronics") {
-  //     electronicsCount++;
-  //   } else if (item.category === "jewelery") {
-  //     jeweleryCount++;
-  //   } else if (item.category === "men's clothing") {
-  //     mensClothingCount++;
-  //   } else if (item.category === "women's clothing") {
-  //     womansClothingCount++;
-  //   }
-  // });
-
   return (
     <div style={{ margin: "48px 100px 0px  300px" }}>
       <FilterButton>
         Filter <img src={FilterIcon} alt="" />
       </FilterButton>
       <div>
-        <h4 style={{ fontSize: "20px", margin: "24px 0px" }}>All Categories</h4>
+        <h4
+          style={{ fontSize: "20px", margin: "24px 0px" }}
+          onClick={() => setCurrentCategory("")}
+        >
+          All Categories
+        </h4>
         <div style={{ display: "grid", gap: "14px" }}>
-          {categories.map((item, index) => (
-            <div style={{ display: "flex", gap: "10px" }}>
+          {categories.map((item) => (
+            <div
+              onClick={() => setCurrentCategory(item)}
+              key={item}
+              style={{ display: "flex", gap: "10px" }}
+            >
               <label>
                 <StyledInput type="checkbox" />
                 <CheckboxContainer className="checkbox-container">
                   <InnerCircle className="inner-circle"></InnerCircle>
                 </CheckboxContainer>
               </label>
+              <p>{item}</p>
             </div>
           ))}
         </div>

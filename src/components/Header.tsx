@@ -16,7 +16,11 @@ const StyledHeader = styled.div`
   gap: 10px;
 `;
 
-const Header = () => {
+interface Props {
+  currentCategory: string;
+}
+
+const Header = ({ currentCategory }: Props) => {
   return (
     <StyledHeader>
       <img style={{ width: "24px" }} src={HomeIcon} alt="" />
@@ -31,17 +35,21 @@ const Header = () => {
       >
         Categories
       </h2>
-      <img style={{ width: "8px" }} src={ArrowIcon} alt="" />
-      <h2
-        style={{
-          color: "#999999",
-          fontSize: "14px",
-          margin: "auto 0px",
-          fontWeight: 400,
-        }}
-      >
-        Vegetables
-      </h2>
+      {currentCategory.length > 0 ? (
+        <>
+          <img style={{ width: "8px" }} src={ArrowIcon} alt="" />
+          <h2
+            style={{
+              color: "#999999",
+              fontSize: "14px",
+              margin: "auto 0px",
+              fontWeight: 400,
+            }}
+          >
+            {currentCategory}
+          </h2>
+        </>
+      ) : null}
     </StyledHeader>
   );
 };
