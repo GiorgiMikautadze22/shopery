@@ -21,7 +21,15 @@ const SingleProduct = ({
         products={products}
         currentProduct={currentProduct}
       />
-      <div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "100px",
+          gap: "75px",
+        }}
+      >
         <img
           style={{ width: "500px", height: "500px", objectFit: "contain" }}
           src={currentProduct.image}

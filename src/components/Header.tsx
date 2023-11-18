@@ -65,7 +65,7 @@ const Header = ({
           <img style={{ width: "8px" }} src={ArrowIcon} alt="" />
           <h2
             style={{
-              color: "#999999",
+              color: "#00B207",
               fontSize: "14px",
               margin: "auto 0px",
               fontWeight: 400,

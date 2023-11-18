@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import FilterIcon from "../Images/Filter 24px.svg";
 import { Products } from "../Interface";
+import RangeSlider from "./PriceRange";
 
 const FilterButton = styled.button`
   width: 130px;
@@ -43,6 +44,13 @@ const InnerCircle = styled.div`
   background-color: #00b207;
   border-radius: 50%;
   opacity: 0;
+`;
+
+const Line = styled.div`
+  width: 100%;
+  height: 1px;
+  border: 1px solid #e6e6e6;
+  margin: 20px 0px;
 `;
 
 interface Props {
@@ -121,6 +129,14 @@ const Filter = ({ products, currentCategory, setCurrentCategory }: Props) => {
           ))}
         </div>
       </div>
+      <Line />
+      <h3 style={{ fontSize: "20px", marginBottom: "10px" }}>Price</h3>
+      <RangeSlider />
+      <p>
+        Pice:{" "}
+        <span style={{ fontWeight: "600", marginTop: "10px" }}>50 - 1500</span>
+      </p>
+      <Line />
     </div>
   );
 };
