@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import FilterIcon from "../Images/Filter 24px.svg";
 import { Products } from "../Interface";
@@ -58,6 +58,30 @@ const Filter = ({ products, currentCategory, setCurrentCategory }: Props) => {
     "women's clothing",
   ];
 
+  const [specificCategory, setSpecificCategory] = useState<Products[]>([]);
+  const [electronics, setElectronics] = useState<Products[]>([]);
+  const [jewelery, setJewelery] = useState<Products[]>([]);
+  const [mensClothing, setMensClothing] = useState<Products[]>([]);
+  const [womansClothing, setWomansClothing] = useState<Products[]>([]);
+
+  useEffect(() => {
+    categories.map((item) => {
+      fetch(`https://fakestoreapi.com/products/category/${item}`)
+        .then((res) => res.json())
+        .then((json) => {
+          if (item === "electronics") {
+            setElectronics(json);
+          } else if (item === "jewelery") {
+            setJewelery(json);
+          } else if (item === "men's clothing") {
+            setMensClothing(json);
+          } else {
+            setWomansClothing(json);
+          }
+        });
+    });
+  }, []);
+
   return (
     <div style={{ margin: "48px 100px 0px  300px" }}>
       <FilterButton>
@@ -84,6 +108,15 @@ const Filter = ({ products, currentCategory, setCurrentCategory }: Props) => {
                 </CheckboxContainer>
               </label>
               <p style={{ cursor: "pointer" }}>{item}</p>
+              {item === "electronics" ? (
+                <p>({electronics.length})</p>
+              ) : item === "jewelery" ? (
+                <p>({jewelery.length})</p>
+              ) : item === "men's clothing" ? (
+                <p>({mensClothing.length})</p>
+              ) : item === "women's clothing" ? (
+                <p>({womansClothing.length})</p>
+              ) : null}
             </div>
           ))}
         </div>
