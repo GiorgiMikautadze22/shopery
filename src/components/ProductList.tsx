@@ -2,22 +2,19 @@ import React, { useEffect, useState } from "react";
 import BagIcon from "../Images/Bag.svg";
 import styled from "styled-components";
 import AddToCart from "../Images/Add To Cart.svg";
-import { Products } from "../Interface";
+import { Product, Products } from "../Interface";
 import { useNavigate } from "react-router-dom";
+import BasicRating from "./Rating";
 
-const Product = styled.div`
+const ProductItem = styled.div`
   border: 1px solid #e6e6e6;
   border-radius: 8px;
   padding: 5px;
 
   &:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
     transition: 200ms;
-    box-shadow: 0px 0px 15px 8px #00000040;
-  }
-  &:active {
-    transform: scale(0.95);
-    transition: 0ms;
+    box-shadow: 0px 0px 30px 0px #00000040;
   }
 `;
 
@@ -39,11 +36,25 @@ const ShoppingIcon = styled.div`
   }
 `;
 
+const ProductName = styled.p`
+  color: #4d4d4d;
+  font-size: 16px;
+  width: 200px;
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+    color: #00b207;
+  }
+`;
+
 interface Props {
   products: Products[];
   setProducts: React.Dispatch<React.SetStateAction<Products[]>>;
   currentCategory: string;
-  setCurrentProduct: React.Dispatch<React.SetStateAction<{}>>;
+  setCurrentProduct: React.Dispatch<React.SetStateAction<Product>>;
   value: number[];
   setValue: React.Dispatch<React.SetStateAction<number[]>>;
   highestPrice: number;
@@ -70,7 +81,7 @@ const ProductList = ({
 
   // const [filteredProducts, setFilteredProducts] = useState<Products[]>([]);
 
-  const viewProduct = (productName: object) => {
+  const viewProduct = (productName: Product) => {
     setCurrentProduct(productName);
     navigate("/product");
   };
@@ -113,19 +124,17 @@ const ProductList = ({
         }}
       >
         {filteredProducts.map((item) => (
-          <Product
-            onClick={() => viewProduct(item)}
-            key={item.id}
-            style={{ cursor: "pointer" }}
-          >
+          <ProductItem key={item.id}>
             <img
               style={{
                 width: "300px",
                 height: "300px",
                 objectFit: "contain",
+                cursor: "pointer",
               }}
               src={item.image}
               alt={item.title}
+              onClick={() => viewProduct(item)}
             />
             <div
               style={{
@@ -135,18 +144,11 @@ const ProductList = ({
               }}
             >
               <div>
-                <p
-                  style={{
-                    color: "#4D4D4D",
-                    fontSize: "14px",
-                    width: "200px",
-                    display: "flex",
-                    gap: "10px",
-                  }}
-                >
+                <ProductName onClick={() => viewProduct(item)}>
                   {item.title.split(" ").slice(0, 3).join(" ")}
-                </p>
+                </ProductName>
                 <h3 style={{ fontSize: "16px" }}>${item.price}</h3>
+                <BasicRating />
               </div>
               <ShoppingIcon>
                 <img
@@ -160,7 +162,7 @@ const ProductList = ({
                 />
               </ShoppingIcon>
             </div>
-          </Product>
+          </ProductItem>
         ))}
       </div>
     </div>

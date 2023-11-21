@@ -3,9 +3,11 @@ import { Product } from "../Interface";
 import styled from "styled-components";
 import ShoppingIcon from "../Images/Rectangle.svg";
 import HeartIcon from "../Images/Heart.svg";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   currentProduct: Product;
+  addToCart: () => void;
 }
 
 const Line = styled.div`
@@ -29,6 +31,12 @@ const AddToCartButton = styled.button`
   align-items: center;
   gap: 16px;
   cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+    transition: 120ms;
+    transform: scale(1.02);
+  }
 `;
 
 const HeartButton = styled.div`
@@ -42,7 +50,7 @@ const HeartButton = styled.div`
   cursor: pointer;
 `;
 
-const ProductInfo = ({ currentProduct }: Props) => {
+const ProductInfo = ({ currentProduct, addToCart }: Props) => {
   return (
     <div style={{ width: "650px" }}>
       <h2 style={{ fontSize: "36px", marginBottom: "20px" }}>
@@ -57,7 +65,7 @@ const ProductInfo = ({ currentProduct }: Props) => {
       </p>
       <Line />
       <div style={{ display: "flex", gap: "12px" }}>
-        <AddToCartButton>
+        <AddToCartButton onClick={() => addToCart()}>
           <span>Add to Cart</span>
           <img src={ShoppingIcon} alt="" />
         </AddToCartButton>

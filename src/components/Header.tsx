@@ -8,7 +8,7 @@ import { Product, Products } from "../Interface";
 const StyledHeader = styled.div`
   display: flex;
   background-image: url(${HeaderImg});
-  //   background-size: 100%; // after image size exeeds 1920px
+  // background-size: 100%; // after image size exeeds 1920px
   background-repeat: no-repeat;
   background-position: 100% 0%;
   width: 100%;

@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import Filter from "../../components/Filter";
 import ProductList from "../../components/ProductList";
-import { Products } from "../../Interface";
+import { Product, Products } from "../../Interface";
 
 interface Props {
   setCurrentCategory: React.Dispatch<React.SetStateAction<string>>;
   products: Products[];
   setProducts: React.Dispatch<React.SetStateAction<Products[]>>;
   currentCategory: string;
-  setCurrentProduct: React.Dispatch<React.SetStateAction<{}>>;
+  setCurrentProduct: React.Dispatch<React.SetStateAction<Product>>;
 }
 
 function HomePage({

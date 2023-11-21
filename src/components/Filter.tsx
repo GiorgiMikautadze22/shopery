@@ -141,7 +141,7 @@ const Filter = ({
   }, []);
 
   return (
-    <div style={{ margin: "48px 100px 0px  300px" }}>
+    <div style={{ margin: "48px 50px 0px  80px" }}>
       <FilterButton onClick={handleFilter}>
         Filter <img src={FilterIcon} alt="" />
       </FilterButton>
