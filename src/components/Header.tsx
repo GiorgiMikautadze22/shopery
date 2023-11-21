@@ -30,7 +30,6 @@ const Header = ({
   active,
   currentProduct,
 }: Props) => {
-  console.log(currentProduct);
   return (
     <StyledHeader>
       <img style={{ width: "24px" }} src={HomeIcon} alt="" />

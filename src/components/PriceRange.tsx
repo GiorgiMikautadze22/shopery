@@ -1,14 +1,29 @@
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import { useState } from "react";
+import { Products } from "../Interface";
 
 function valuetext(value: number) {
   return `${value}`;
 }
 
-export default function RangeSlider() {
-  const [value, setValue] = useState<number[]>([20, 37]);
+interface Props {
+  value: number[];
+  setValue: React.Dispatch<React.SetStateAction<number[]>>;
+  lowestPrice: number;
+  highestPrice: number;
+  filteredProducts: Products[];
+  setFilteredProducts: React.Dispatch<React.SetStateAction<Products[]>>;
+}
 
+export default function RangeSlider({
+  value,
+  setValue,
+  lowestPrice,
+  highestPrice,
+  filteredProducts,
+  setFilteredProducts,
+}: Props) {
   const handleChange = (event: Event, newValue: number | number[]) => {
     setValue(newValue as number[]);
   };
@@ -22,6 +37,8 @@ export default function RangeSlider() {
         valueLabelDisplay="auto"
         getAriaValueText={valuetext}
         color="primary"
+        max={highestPrice}
+        min={lowestPrice}
       />
     </Box>
   );

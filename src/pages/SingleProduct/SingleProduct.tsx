@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Header from "../../components/Header";
 import { Product, Products } from "../../Interface";
 import ProductInfo from "../../components/ProductInfo";
+import styled from "styled-components";
 
 interface Props {
   products: Products[];

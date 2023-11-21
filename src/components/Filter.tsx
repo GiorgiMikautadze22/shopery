@@ -17,6 +17,16 @@ const FilterButton = styled.button`
   justify-content: center;
   align-items: center;
   gap: 10px;
+
+  &:hover {
+    opacity: 0.6;
+    cursor: pointer;
+    transition: 120ms;
+    transform: scale(1.05);
+  }
+  &:active {
+    transform: scale(0.95);
+  }
 `;
 
 const StyledInput = styled.input`
@@ -53,12 +63,40 @@ const Line = styled.div`
   margin: 20px 0px;
 `;
 
+const CategoryName = styled.p`
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+    color: green;
+  }
+`;
+
 interface Props {
   products: Products[];
   currentCategory: string;
   setCurrentCategory: React.Dispatch<React.SetStateAction<string>>;
+  value: number[];
+  setValue: React.Dispatch<React.SetStateAction<number[]>>;
+  highestPrice: number;
+  lowestPrice: number;
+  prices: number[];
+  filteredProducts: Products[];
+  setFilteredProducts: React.Dispatch<React.SetStateAction<Products[]>>;
+  handleFilter: () => void;
 }
-const Filter = ({ products, currentCategory, setCurrentCategory }: Props) => {
+const Filter = ({
+  products,
+  currentCategory,
+  setCurrentCategory,
+  value,
+  setValue,
+  highestPrice,
+  lowestPrice,
+  prices,
+  filteredProducts,
+  setFilteredProducts,
+  handleFilter,
+}: Props) => {
   const categories = [
     "electronics",
     "jewelery",
@@ -71,6 +109,18 @@ const Filter = ({ products, currentCategory, setCurrentCategory }: Props) => {
   const [jewelery, setJewelery] = useState<Products[]>([]);
   const [mensClothing, setMensClothing] = useState<Products[]>([]);
   const [womansClothing, setWomansClothing] = useState<Products[]>([]);
+
+  // const prices =
+  //   products.length > 0 ? products.map((product) => product.price) : [];
+
+  // const highestPrice = prices.length > 0 ? Math.max(...prices) : 0;
+  // const lowestPrice = prices.length > 0 ? Math.min(...prices) : 0;
+
+  // const [value, setValue] = useState<number[]>([]);
+
+  // useEffect(() => {
+  //   setValue([lowestPrice, highestPrice]);
+  // }, [highestPrice]);
 
   useEffect(() => {
     categories.map((item) => {
@@ -92,7 +142,7 @@ const Filter = ({ products, currentCategory, setCurrentCategory }: Props) => {
 
   return (
     <div style={{ margin: "48px 100px 0px  300px" }}>
-      <FilterButton>
+      <FilterButton onClick={handleFilter}>
         Filter <img src={FilterIcon} alt="" />
       </FilterButton>
       <div>
@@ -115,7 +165,7 @@ const Filter = ({ products, currentCategory, setCurrentCategory }: Props) => {
                   <InnerCircle className="inner-circle"></InnerCircle>
                 </CheckboxContainer>
               </label>
-              <p style={{ cursor: "pointer" }}>{item}</p>
+              <CategoryName style={{ cursor: "pointer" }}>{item}</CategoryName>
               {item === "electronics" ? (
                 <p>({electronics.length})</p>
               ) : item === "jewelery" ? (
@@ -131,10 +181,21 @@ const Filter = ({ products, currentCategory, setCurrentCategory }: Props) => {
       </div>
       <Line />
       <h3 style={{ fontSize: "20px", marginBottom: "10px" }}>Price</h3>
-      <RangeSlider />
+      <RangeSlider
+        value={value}
+        setValue={setValue}
+        highestPrice={highestPrice}
+        lowestPrice={lowestPrice}
+        filteredProducts={filteredProducts}
+        setFilteredProducts={setFilteredProducts}
+      />
       <p>
-        Pice:{" "}
-        <span style={{ fontWeight: "600", marginTop: "10px" }}>50 - 1500</span>
+        Pice:
+        {prices.length > 0 ? (
+          <span style={{ fontWeight: "600", marginTop: "10px" }}>
+            {value[0]} - {value[1]}
+          </span>
+        ) : null}
       </p>
       <Line />
     </div>
